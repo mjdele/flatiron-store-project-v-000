@@ -18,7 +18,7 @@ describe 'Feature Test: Cart', :type => :feature do
        visit cart_path(@user.current_cart)
        expect(page).to have_content(@first_item.title)
        expect(page).to have_content(@second_item.title)
-     end
+     end  
 
      it "Has a Checkout Button" do
        visit cart_path(@user.current_cart)
@@ -52,7 +52,7 @@ describe 'Feature Test: Cart', :type => :feature do
        click_button("Checkout")
 
        @user.reload
-       expect(@user.current_cart).to be_nil 
+       expect(@user.current_cart).to be_nil
      end
     end
   end
@@ -152,7 +152,7 @@ describe 'Feature Test: Cart', :type => :feature do
         expect(@user.current_cart.line_items.first.quantity).to eq(2)
         expect(page).to have_content("Quantity: 2")
         total = first_item.price * 2
-        expect(page).to have_content("$#{total.to_f/100}")
+        expect(page).to have_content("$#{total.to_f}")
       end
 
     end

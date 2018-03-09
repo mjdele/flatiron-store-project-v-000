@@ -1,15 +1,21 @@
-<h1>Your Cart</h1>
+<h1>Cart</h1>
 
 <% if notice %>
   <p><%= notice %></p> 
 <% end %>
 
-<% current_cart.line_items.each do |line_item| %>
-  <p><%= link_to line_item.item.title, item_path(line_item.item) %> | <%= number_to_currency(line_item.item.price) %> | Quantity: <%= line_item.quantity %> | <% if line_item.item.inventory < 5 %>
-    <strong>There are only <%= line_item.item.inventory %> left in stock.</strong>
-  <% end %> </p>
+<% if @current_cart %>
+  <% @current_cart.line_items.each do |line_item| %>
+    <p><%= link_to line_item.item.title, item_path(line_item.item) %> | <%= number_to_currency(line_item.item.price) %> | Quantity: <%= line_item.quantity %> | <% if line_item.item.inventory < 5 %> 
+      <strong>There are only <%= line_item.item.inventory %> left in stock.</strong> </p>
+    <% end %>
+  <% end %>
+<% else %>
+  <h3>Your Cart Is Empty </h3>
 <% end %>
 
-<p>Order total: <strong><%= number_to_currency(current_cart.total) %></strong> </p>
+<% if @current_cart%>
+  <p>Order total: <strong><%= number_to_currency(@current_cart.total) %></strong> </p>
+<% end %>
 
-<%= button_to 'Checkout', checkout_path %>
+<%= button_to 'Checkout', checkout_path if @current_cart %>
